@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html><head>
+    <title>Z Buffer Example</title>
+    <script id="vertex-shader" type="x-shader/x-vertex">
+    attribute vec3 VPost;
+    attribute vec3 vertexColor;
+    varying vec4 color;
+    
+    void
+    main()
+    {
+        gl_Position = vec4(VPost, 1.0);
+        color = vec4(vertexColor, 1.0);
+    }
+    </script>
+    <script id="fragment-shader" type="x-shader/x-fragment">
+    precision mediump float;
+    varying vec4 color;
+    
+    void
+    main()
+    {
+        gl_FragColor = color;
+    }
+    </script>
+    <script type="text/javascript" src="../Common/webgl-utils.js"></script>
+    <script type="text/javascript" src="../Common/initShaders.js"></script>
+    <script type="text/javascript" src="../Common/MVnew.js"></script>
+    <script type="text/javascript" src="zBuffer.js"></script>
+    </head>
+    <body>
+    <canvas id="gl-canvas" width="700" height="700">
+    Oops ... your browser doesn't support the HTML5 canvas element
+    </canvas>
+    </body></html>

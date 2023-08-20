@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <body>
+
+    <canvas id="sierpinskiCanvas" width="800" height="800" style="border:10px solid #a156d6;">
+    Your browser does not support the HTML5 canvas tag.</canvas>
+
+    <script>
+        var width = 700
+        var height = 700
+        var size = 500
+        function sierpinski(Ax,Ay,Bx,By,Cx,Cy,d,ctx) {
+            if(d > 0){
+                var pointAx = (Bx + Cx) / 2
+                var pointAy = (By + Cy) / 2
+
+                var pointBx = (Ax + Cx) / 2
+                var pointBy = (Ay + Cy) / 2
+
+                var pointCx = (Ax + Bx) / 2
+                var pointCy = (Ay + By) / 2
+
+                var d2 = d - 1
+
+                sierpinski(Ax,Ay,pointBx,pointBy,pointCx,pointCy,d2,ctx)
+                sierpinski(pointCx,pointCy,pointAx,pointAy,Bx,By,d2,ctx)
+                sierpinski(pointBx,pointBy,pointAx,pointAy,Cx,Cy,d2,ctx)
+            }
+
+            else{
+                ctx.moveTo(Ax, Ay)
+                ctx.lineTo(Ax, Ay)
+                ctx.lineTo(Bx, By)
+                ctx.lineTo(Cx, Cy)
+            }
+        }
+        function draw(ctx){
+            var midpointx = width / 2
+            var midpointy = height / 2
+
+            var deep = 9
+
+            var r = (size / 6) * Math.sqrt(3)
+            var rr = (size / 3) * Math.sqrt(3)
+
+            var pointAx = midpointx - (size / 2)
+            var pointAy = midpointy + r
+        
+            var pointBx = midpointx + (size / 2)
+            var pointBy = midpointy + r
+        
+            var pointCx = midpointx
+            var pointCy = midpointy - rr;
+
+            sierpinski(pointAx,pointAy,pointBx,pointBy,pointCx,pointCy,deep,ctx)
+        }
+
+        var ctx = document.getElementById("sierpinskiCanvas").getContext("2d")
+        draw(ctx)
+        ctx.fillStyle = '#a156d6'
+        ctx.fill()
+        ctx.strokeStyle = 'purple'
+        ctx.lineWidth = 2
+        ctx.stroke() 
+        </script>
+    </body>
+</html>
